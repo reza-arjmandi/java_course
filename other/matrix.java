@@ -4,35 +4,43 @@ public class matrix {
 
     public static int[][] spiral_numbers(int n) {
         int[][] matrix = new int[n][n];
-        for (int step = 0, a = 0, size; step < n/2; step++) {
-            size = (n - step * 2 - 1);
-            for (int i = 0, chunk, chunkIndex, chunkOffset; i < 4 * size; i++) {
-                chunk = i / size;
-                chunkIndex = i % size;
-                chunkOffset = n - step - 1;
-                switch (chunk) {
-                    case 0:
-                        matrix[step][chunkIndex + step] = a+1;
-                        break;
-                    case 1:
-                        matrix[chunkIndex + step][chunkOffset] = a+1;
-                        break;
-                    case 2:
-                        matrix[chunkOffset][chunkOffset - chunkIndex] = a+1;
-                        break;
-                    case 3:
-                        matrix[chunkOffset - chunkIndex][step] = a+1;
-                        break;
-                    default:
-                        throw new IndexOutOfBoundsException();
-                }
-                a++;
-            }
+
+        int counter = 1;
+        for (int step = 0; step < n/2; step++) {
+            counter = spiral_step(n, matrix, counter, step);
             if (n % 2 == 1) {
                 matrix[n/2][n/2] = n * n;
             }
         }
         return matrix; 
+    }
+
+    private static int spiral_step(int n, int[][] matrix, int counter, int step) {
+        int number_in_each_side = (n - step * 2 - 1);
+        for (int i = 0; i < 4 * number_in_each_side; i++) {
+            int side = i / number_in_each_side;
+            
+            int chunkIndex = i % number_in_each_side;
+            int chunkOffset = n - step - 1;
+            switch (side) {
+                case 0:
+                    matrix[step][chunkIndex + step] = counter;
+                    break;
+                case 1:
+                    matrix[chunkIndex + step][chunkOffset] = counter;
+                    break;
+                case 2:
+                    matrix[chunkOffset][chunkOffset - chunkIndex] = counter;
+                    break;
+                case 3:
+                    matrix[chunkOffset - chunkIndex][step] = counter;
+                    break;
+                default:
+                    throw new IndexOutOfBoundsException();
+            }
+            counter++;
+        }
+        return counter;
     }
 
     public static void main(String[] args) {
