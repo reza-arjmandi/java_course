@@ -1,0 +1,102 @@
+/*
+ * Scrivere un metodo, detto frequences, che, dato 
+ * in input un array a di numeri interi non vuoto, 
+ * restituisca l'array delle frequenze degli 
+ * elementi distinti di a, in ordine crescente 
+ * dei valori degli elementi. Ad esempio, con 
+ * input il vettore {1,6,5,8,6,6,8,5,3,1,6,8}, 
+ * il metodo deve restituire l'array {2,1,2,4,3}, 
+ * in quanto il valore 1 appare due volte, il 3 
+ * una volta, il 5 due volte, il 6 quattro volte 
+ * e l'8 tre volte. L'array in input non deve essere 
+ * modificato dall'esecuzione del metodo.
+ * 
+ * ESEMPI
+ * Input: {1,6,5,8,6,6,8,5,3,1,6,8}
+ * Output: {2,1,2,4,3}
+ *
+ * Input: {6,6,6,6}
+ * Output: {4}
+ * 
+ * Input: {3,5,6,2}
+ * Output: {1,1,1,1}
+ * 
+ * 
+ * 
+ */
+
+
+import java.util.Arrays;
+ 
+void mergeSort(int[] arr, int min, int max) {
+	if (max > arr.length-1) {
+		System.out.println("Il limite massimo è più grande dell'array, per favore diminuiscilo!");
+		return;
+	}
+	if (min < max) {
+		int centro = (min + max) / 2;
+		mergeSort(arr, min, centro);
+		mergeSort(arr, centro+1, max);
+		fusione(arr, min, centro, max);
+	}
+}
+void fusione(int[] arr, int min, int center, int max) {
+	int[] temp = new int[max - min + 1];
+	int i = min; int j = center + 1; int k = 0;
+	
+	while ((i <= center) && (j <= max)) {
+		
+		if (arr[i] < arr[j]) {
+			temp[k] = arr[i]; i++; k++;
+		} else {
+			temp[k] = arr[j]; j++; k++;
+		}
+	}
+	while (i <= center) {
+		temp[k] = arr[i]; i++; k++;
+	}
+	while (j <= max) {
+		temp[k] = arr[j]; j++; k++;
+	}
+	for (i = min; i <= max; i++) {
+		arr[i] = temp[i-min];
+	}
+}
+
+int[] frequences(int[] a) {
+	int[] copia = a;
+	int i = 0, index = 0, contatore = 0, max = copia[0];
+	
+	for (i = 0; i < copia.length; i++) {			// cerco il massimo valore presente nell'array (per creare un array temporaneo più piccolo)
+		if (copia[i] > max) {
+			max = copia[i];
+		}
+	}
+	
+	int[] temp = new int[max+1];			// creo un array temporaneo con lunghezza uguale al massimo numero presente nell'array + 1 (per lo zero)
+	for (i = 0; i < copia.length; i++) {		// inserisco nell'array temp il numero di volte che ogni cifra compare
+		temp[copia[i]]++;						// incremento di 1 l0array all'indice del valore dell'array
+		contatore++;
+	}
+	int[] temp2 = new int[contatore];
+	
+	for (i = 0; i< temp.length; i++) {		// conto il numero di campi necessari per l'array di output
+		if (temp[i] > 0) {
+			temp2[index] = temp[i];
+			index++;						// incremento l'indice ogni volta che un campo è diverso da zero
+		}
+	}
+	int[] output = new int[index];
+	for (i = 0; i < index; i++) {			// assegno all'array di output ogni valore maggiore di zero
+		output[i] = temp2[i];
+	}
+	return output;
+}
+
+int[] array1 = {1,6,5,8,6,6,8,5,3,1,6,8};
+int[] array2 = {6,6,6,6};
+int[] array3 = {3,5,6,2};
+
+System.out.println(Arrays.toString(frequences(array1)));
+System.out.println(Arrays.toString(frequences(array2)));
+System.out.println(Arrays.toString(frequences(array3)));
