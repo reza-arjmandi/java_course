@@ -1,5 +1,3 @@
-package lab10;
-
 import java.util.Arrays;
 
 public class Frequencesmm {
