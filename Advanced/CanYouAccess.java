@@ -12,14 +12,14 @@ public class CanYouAccess {
 		try{
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			int num = Integer.parseInt(br.readLine().trim());
-			Object o = new Inner().new Private();// Must be used to hold the reference of the instance of the class Solution.Inner.Private
+			Object o;// Must be used to hold the reference of the instance of the class Solution.Inner.Private
 
             CanYouAccess.Inner inner = new CanYouAccess.Inner();
             Inner.Private insidePrivate = inner.new Private();   
             System.out.println(num +" is "+insidePrivate.powerof2(num));
             o=insidePrivate;
 
-		System.out.println("An instance of class: " + o.getClass().getCanonicalName() + " has been created");
+			System.out.println("An instance of class: " + o.getClass().getCanonicalName() + " has been created");
 		
 		}//end of try
 		
