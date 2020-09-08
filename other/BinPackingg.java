@@ -1,5 +1,3 @@
-package lab12;
-
 import java.util.Arrays;
 
 public class BinPackingg {
