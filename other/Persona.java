@@ -36,6 +36,7 @@ public class Persona implements Comparable<Persona> {
                 list2.add(Collections.min(list1));
             }
             else {
+                list2.add(other);
                 throw new IllegalArgumentException();
             }
         }
@@ -43,8 +44,10 @@ public class Persona implements Comparable<Persona> {
             if(!list1.isEmpty()) {
                 list2.add(Collections.min(list1, Comparator.comparing(Persona::getNome)));            }
             else{
+                list2.add(other);
                 throw new IllegalArgumentException();
             }
         }
+        list2.add(other);
     }
 }
