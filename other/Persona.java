@@ -1,4 +1,5 @@
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Persona implements Comparable<Persona> {
@@ -37,12 +38,10 @@ public class Persona implements Comparable<Persona> {
             else {
                 throw new IllegalArgumentException();
             }
-
         }
         else {
             if(!list1.isEmpty()) {
-                list2.add(Collections.min(list1));
-            }
+                list2.add(Collections.min(list1, Comparator.comparing(Persona::getNome)));            }
             else{
                 throw new IllegalArgumentException();
             }
